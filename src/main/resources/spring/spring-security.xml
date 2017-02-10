@@ -1,0 +1,42 @@
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http pattern="/votingsystem/i18n/**" security="none"/>
+    <http pattern="/votingsystem/resources/**" security="none"/>
+
+    <http entry-point-ref="entryPoint">
+        <intercept-url pattern="/votingsystem/login" access="permitAll"/>
+        <intercept-url pattern="/votingsystem/register" access="permitAll"/>
+
+        <intercept-url pattern="/votingsystem/**/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/votingsystem/**" access="isAuthenticated()" />
+        <form-login login-page="/votingsystem/login"
+                    login-processing-url="/votingsystem/spring_security_check"
+                    authentication-failure-handler-ref="customUrlAuthenticationFailureHandler"
+                    authentication-success-handler-ref="customSavedRequestAwareAuthenticationSuccessHandler"/>
+
+        <csrf disabled="true"/>
+        <access-denied-handler ref="customAccessDeniedHandler" />
+        <logout logout-url="/votingsystem/logout" success-handler-ref="customLogoutSuccessHandler" delete-cookies="JSESSIONID" invalidate-session="true"/>
+    </http>
+
+    <beans:bean id="entryPoint" class="ua.webapp.votingsystem.web.handler.CustomRestAuthenticationEntryPoint"/>
+    <beans:bean id="customAccessDeniedHandler" class="ua.webapp.votingsystem.web.handler.CustomAccessDeniedHandler" />
+    <beans:bean id="customLogoutSuccessHandler" class="ua.webapp.votingsystem.web.handler.CustomLogoutSuccessHandler" />
+    <beans:bean id="customSavedRequestAwareAuthenticationSuccessHandler" class="ua.webapp.votingsystem.web.handler.CustomSavedRequestAwareAuthenticationSuccessHandler" />
+    <beans:bean id="customUrlAuthenticationFailureHandler" class="ua.webapp.votingsystem.web.handler.CustomUrlAuthenticationFailureHandler" />
+
+    <beans:bean class="ua.webapp.votingsystem.util.PasswordUtil" id="passwordEncoder"
+                factory-method="getPasswordEncoder"/>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="userService">
+            <password-encoder ref="passwordEncoder"/>
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>

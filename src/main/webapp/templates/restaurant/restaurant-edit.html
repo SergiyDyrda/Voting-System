@@ -1,0 +1,41 @@
+<div
+        *ngIf="showToggle && authService.hasAdminRole()"
+        [style.display]="'block'"
+        [style.background-color]="'rgba(0,0,0,0.4)'"
+        class="modal fade in" id="editRow" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="showToggle = false" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h2 class="modal-title">{{'restaurants.edit' | i18nPipe}}</h2>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="restaurantForm" class="form-horizontal" id="detailsForm">
+                    <input type="hidden" id="id" name="id">
+
+                    <div class="form-group">
+                        <label for="name" class="control-label col-xs-3">{{'restaurants.name' |
+                            i18nPipe}}</label>
+
+                        <div class="col-xs-9">
+                            <input
+                                    [formControl]="restaurantForm.controls['name']"
+                                    type="text" class="form-control"
+                                    id="name" name="name"
+                                    placeholder="{{'restaurants.name' | i18nPipe}}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-9">
+                            <button type="button" [disabled]="!restaurantForm.valid || !restaurantForm.dirty" (click)="onSave()"
+                                    class="btn btn-primary">{{'common.save' | i18nPipe}}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<div
+        *ngIf="showToggle && authService.hasAdminRole()"
+        [style.display]="'block'"
+        [style.background-color]="'rgba(0,0,0,0.4)'"
+        class="modal fade in" id="editRow" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="showToggle = false" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h2 class="modal-title">{{'dishes.edit' | i18nPipe}}</h2>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="dishForm" class="form-horizontal" id="detailsForm">
+                    <input type="hidden" id="id" name="id">
+                    <input type="hidden" id="votes" name="votes">
+
+                    <div class="form-group">
+                        <label for="name" class="control-label col-xs-3">{{'dishes.name' |
+                            i18nPipe}}</label>
+
+                        <div class="col-xs-9">
+                            <input
+                                    [formControl]="dishForm.controls['name']"
+                                    type="text" class="form-control"
+                                    id="name" name="name"
+                                    placeholder="{{'dishes.name' | i18nPipe}}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description" class="control-label col-xs-3">{{'dishes.description' |
+                            i18nPipe}}</label>
+
+                        <div class="col-xs-9">
+                            <textarea cols="40" rows="3"
+                                    [formControl]="dishForm.controls['description']"
+                                    class="form-control"
+                                    id="description" name="description"
+                                    placeholder="{{'dishes.description' | i18nPipe}}"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="calories" class="control-label col-xs-3">{{'dishes.calories' | i18nPipe}}</label>
+
+                        <div class="col-xs-9">
+                            <input formControlName="calories" type="number" class="form-control"
+                                   id="calories" name="calories"
+                                   placeholder="2000" min="10" max="5000">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-xs-offset-3 col-xs-9">
+                            <button type="button" [disabled]="!dishForm.valid || !dishForm.dirty" (click)="onSave()"
+                                    class="btn btn-primary">{{'common.save' | i18nPipe}}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

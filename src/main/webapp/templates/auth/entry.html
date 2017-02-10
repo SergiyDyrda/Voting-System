@@ -1,0 +1,50 @@
+<div class="jumbotron">
+    <div class="container">
+
+        <p>
+        <p>User 1 login: <b>user@yandex.ru / user1</b></p>
+        <p>User 2 login: <b>user@hotmail.ru / user2</b></p>
+        <p>User 3 login: <b>user@mail.ru / user3</b></p>
+
+        <p>Admin login: <b>admin@gmail.com / admin</b></p>
+
+        <p><a class="btn btn-primary btn-lg" role="button" [routerLink]="['/register']">{{'app.register' |
+            i18nPipe}}</a></p>
+
+        <p>Стек технологий: <a href="http://projects.spring.io/spring-security/">Spring Security</a>,
+            <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC</a>,
+            <a href="http://spring.io/blog/2014/05/07/preview-spring-security-test-method-security">Spring Security
+                Test</a>,
+            <a href="http://hibernate.org/orm/">Hibernate ORM</a>,
+            <a href="http://hibernate.org/validator/">Hibernate Validator</a>,
+            <a href="https://logback.qos.ch">Logback</a>,
+            <a href="https://github.com/FasterXML/jackson">Json Jackson</a>,
+            <a href="http://tomcat.apache.org/">Apache Tomcat</a>,
+            <a href="http://ehcache.org">Ehcache</a>,
+            <a href="http://www.postgresql.org/">PostgreSQL</a>,
+            <a href="http://junit.org/">JUnit</a>,
+            <a href="http://hamcrest.org/JavaHamcrest/">Hamcrest</a>,
+            <a href="http://code.google.com/p/log4jdbc-remix">Log4JDBC</a>,
+            <a href="https://angular.io/">Angular 2</a>,
+            <a href="http://getbootstrap.com/">Bootstrap</a>.</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="lead">
+        &nbsp;&nbsp;&nbsp;<a href="https://github.com/SergiyDyrda/Voting-System">Java Enterprise проект</a> с
+        регистрацией/авторизацией и интерфейсом на основе ролей (USER, ADMIN).
+        Система проведения голосованния для принятия решения, о месте проведения ланча.
+        Администратор производит запись в систему данных о предложенных ресторанах (наименование, меню).
+        Меню меняеться каждый день (администратор осуществляет обновления).
+        Пользователи могут голосовать за ресторан, в котором они желают провести ланч.
+        Каждый пользователь способен отдать только один голос.
+        Если пользователь повторно голосует в тот же день:
+        <ul>
+            <li>Если голосование происходит раньше 11:00, предполагается, что пользователь изменил свое решение</li>
+            <li>Если голосование происходит позже 11:00, голос пользователя не учитывается по причине истечения срока допускаемого для голосования</li>
+        </ul>
+    </div>
+</div>
+
+

@@ -1,0 +1,60 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="shadow">
+            <h3>{{'restaurants.title' | i18nPipe}}</h3>
+
+            <div class="view-box">
+
+                <div class="form-horizontal" role="form">
+                    <div id="search">
+
+                        <p-dataTable [value]="(restaurantsHolder | async)" selectionMode="single"
+                                     [paginator]="true" rows="10" (onRowSelect)="selectRestaurant($event)"
+                                     [responsive]="true">
+
+                            <p-column field="name" header="{{'restaurants.name' | i18nPipe}}"
+                                      [sortable]="true"></p-column>
+
+                            <p-column [style]="{width : '120px'}"
+                                      field="votes" header="{{'restaurants.votes' | i18nPipe}}"
+                                      [sortable]="true"></p-column>
+
+                            <p-column [style]="{width : '120px'}">
+                                <template let-restaurant="rowData" pTemplate type="body">
+                                    <button type="button" pButton
+                                            label="{{'restaurants.dish' | i18nPipe}}"
+                                            (click)="onRestaurantMenu(restaurant)">
+                                    </button>
+                                </template>
+                            </p-column>
+
+                            <p-column *ngIf="!authService.hasAdminRole()" [style]="{width : '180px'}">
+                                <template let-restaurant="rowData" pTemplate type="body">
+                                    <button type="button" pButton (click)="vote(restaurant)"
+                                            label="{{'common.vote' | i18nPipe}}"></button>
+                                </template>
+                            </p-column>
+
+                            <p-column *ngIf="authService.hasAdminRole()" [style]="{width : '120px'}">
+                                <template let-restaurant="rowData" pTemplate type="body">
+                                    <button type="button" pButton (click)="deleteItem(restaurant)"
+                                            label="{{'common.delete' | i18nPipe}}"></button>
+                                </template>
+                            </p-column>
+
+                            <footer *ngIf="authService.hasAdminRole()">
+                                <div class="ui-helper-clearfix" style="width:100%">
+                                    <button type="button" pButton icon="fa-plus" [style]="{float:left}"
+                                            (click)="showCreateModal()"
+                                            label="{{'restaurants.add' | i18nPipe}}"></button>
+                                </div>
+                            </footer>
+                        </p-dataTable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<dish-list></dish-list>
+<edit-restaurant (onSaveEvent)="save($event)"></edit-restaurant>

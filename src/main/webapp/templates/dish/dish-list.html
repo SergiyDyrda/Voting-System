@@ -1,0 +1,45 @@
+<div [hidden]="!hide" class="jumbotron">
+    <div class="container">
+        <div class="shadow">
+             <div *ngIf="restaurant">
+                 <h3>{{'dishes.title' | i18nPipe}} {{restaurant.name}}</h3></div>
+            <div *ngIf="!restaurant">
+                <h3>{{'dishes.title' | i18nPipe}}</h3></div>
+
+            <div class="view-box">
+
+                <div class="form-horizontal" role="form">
+
+                        <p-dataTable [value]="(dishesHolder | async)" selectionMode="single"
+                                     [paginator]="true" rows="10" (onRowSelect)="selectDish($event)"
+                                     [responsive]="true">
+
+                            <p-column field="name" header="{{'dishes.name' | i18nPipe}}"
+                                      [sortable]="true"></p-column>
+
+                            <p-column field="description" header="{{'dishes.description' | i18nPipe}}"
+                                      [sortable]="true"></p-column>
+
+                            <p-column field="calories" header="{{'dishes.calories' | i18nPipe}}"
+                                      [sortable]="true"></p-column>
+
+                            <p-column *ngIf="authService.hasAdminRole()" [style]="{width : '120px'}">
+                                <template let-dish="rowData" pTemplate type="body">
+                                    <button type="button" pButton (click)="deleteItem(dish)"
+                                            label="{{'common.delete' | i18nPipe}}"></button>
+                                </template>
+                            </p-column>
+                            <footer >
+                                <div class="ui-helper-clearfix" style="width:100%">
+                                    <button *ngIf="authService.hasAdminRole()" type="button" pButton icon="fa-plus"
+                                            (click)="showCreateModal()"
+                                            label="{{'dishes.add' | i18nPipe}}"></button>
+                                </div>
+                            </footer>
+                        </p-dataTable>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<edit-dish (onSaveEvent)="save($event)"></edit-dish>
