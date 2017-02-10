@@ -20,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ua.webapp.votingsystem.TestUtil.authenticate;
+import static ua.webapp.votingsystem.TestUtil.mockAuthorize;
 import static ua.webapp.votingsystem.UsersTestData.*;
 
 
@@ -110,10 +111,11 @@ public class AdminUsersControllerTest extends AbstractControllerTest {
         String newEmail = "newemail@google.com";
         User updatedUser = copyOf(USER_1);
         updatedUser.setEmail(newEmail);
+
+        mockAuthorize(USER_2);
         mockMvc.perform(put(ADMIN_USERS_URL + USER_1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(UserUtil.asTo(updatedUser)))
-                .with(authenticate(ADMIN)))
+                .content(JsonUtil.writeValue(UserUtil.asTo(updatedUser))))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
