@@ -29,7 +29,11 @@ export class ProfileComponent implements OnInit{
             res => {
                 let auth = res.json();
                 this.authService.authenticatedAs = auth;
-                this.profileForm.patchValue(auth);
+                this.profileForm.patchValue({
+                    id: auth.id,
+                    name: auth.name,
+                    email: auth.email,
+                });
             }
         )
     }

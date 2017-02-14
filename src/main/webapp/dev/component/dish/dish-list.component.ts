@@ -16,8 +16,6 @@ export class DishListComponent implements OnInit {
 
     dishesHolder: Observable<Dish[]>;
 
-    hide: boolean = true;
-
     restaurant: Restaurant;
 
     @ViewChild(EditDishComponent)

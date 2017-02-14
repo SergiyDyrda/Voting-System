@@ -44,9 +44,10 @@ export class RestaurantListComponent implements OnInit {
     }
 
     onRestaurantMenu(restaurant: Restaurant) {
-        this.dishListComponent.hide = !this.dishListComponent.hide;
-        this.dishListComponent.restaurant = restaurant as Restaurant;
-        this.dishListComponent.updateList();
+        this.dishListComponent.restaurant = this.dishListComponent.restaurant == null ? restaurant as Restaurant : null;
+        if (this.dishListComponent.restaurant) {
+            this.dishListComponent.updateList();
+        }
     }
 
     vote(restaurant: Restaurant) {
