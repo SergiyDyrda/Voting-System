@@ -16,21 +16,14 @@
 
     <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
 
-    <bean id="originalDataSource"
-          class="com.zaxxer.hikari.HikariDataSource"
-          p:driverClassName="${database.driverClassName}"
-          p:jdbcUrl="${database.url}"
-          p:username="${database.username}"
-          p:password="${database.password}"/>
+    <bean class="java.net.URI" id="dbUrl">
+        <constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>
+    </bean>
 
-    <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource" >
-        <constructor-arg ref="originalDataSource" />
-        <property name="logFormatter">
-            <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter" >
-                <property name="loggingType" value="SINGLE_LINE" />
-                <property name="sqlPrefix" value="SQL:::" />
-            </bean>
-        </property>
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="url" value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() }"/>
+        <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
+        <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
     </bean>
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
