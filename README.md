@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/SergiyDyrda/Voting-System.svg?branch=master)](https://travis-ci.org/SergiyDyrda/Voting-System)
 
 Java Enterprise Project "Voting System"
 =======================================
