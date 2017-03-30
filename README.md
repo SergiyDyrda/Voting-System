@@ -19,6 +19,7 @@ Voting system for deciding where to have lunch.
 Each restaurant provides new menu each day.
 
 =======================================
+
 To deploy app you`ll need <a href="http://www.oracle.com/technetwork/pt/java/javase/downloads/jdk8-downloads-2133151.html">Java JDK 8</a>, <a href="https://tomcat.apache.org/download-80.cgi">Tomcat 8+</a>, <a href="https://maven.apache.org/download.cgi">Maven</a>, <a href="https://nodejs.org/en/">NodeJS</a>, <a href="https://www.postgresql.org/download/">PostgreSQL</a>
 
 
