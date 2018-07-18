@@ -37,7 +37,6 @@ To deploy app you`ll need <a href="http://www.oracle.com/technetwork/pt/java/jav
     8. Done.        
 
 
-<a href="https://votingsystem01.herokuapp.com">Demo of application deployed on heroku cloud platform</a>
 
 -----------------------------
 Technology stack: <a href="http://projects.spring.io/spring-security/">Spring Security</a>, <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC</a>, <a href="http://spring.io/blog/2014/05/07/preview-spring-security-test-method-security">Spring Security Test</a>, <a href="http://hibernate.org/orm/">Hibernate ORM</a>, <a href="http://hibernate.org/validator/">Hibernate Validator</a>,
